@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://coa78sxepphhw"]
+[gd_scene load_steps=3 format=3 uid="uid://coa78sxepphhw"]
 
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_wry32"]
 [ext_resource type="TileSet" uid="uid://c1s3xfgccd2py" path="res://scenes/levels/level.tres" id="2_drlu5"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_wry32")
 
 [node name="BG" type="Node2D" parent="."]
 
@@ -25,6 +27,8 @@ format = 2
 [node name="Entities" type="Node2D" parent="Main"]
 
 [node name="Objects" type="Node2D" parent="Main"]
+
+[node name="Projectiles" type="Node2D" parent="Main"]
 
 [node name="FG" type="Node2D" parent="."]
 

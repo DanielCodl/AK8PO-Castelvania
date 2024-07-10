@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Entity
 
 @export_group('move')
 @export var speed := 200
@@ -14,9 +14,11 @@ var gamepad_active := true
 
 @export_group('jump')
 @export var jump_strength := 300
+@export var gun_jump_strength := 180
 @export var gravity := 600
 @export var terminal_velocity := 500
 var jump := false
+var gun_jump := false
 var faster_fall := false
 var gravity_multiplier := 1
 
@@ -25,9 +27,15 @@ var aim_direction := Vector2.RIGHT
 @export var crosshair_distance := 20
 const y_offset := 6
 var current_gun = Global.guns.AK
+@export_range(0.2,2.0) var ak_cooldown := 0.5
+@export_range(0.2,2.0) var shotgun_cooldown := 1.2
+@export_range(0.2,2.0) var rocket_cooldown := 1.5
 
 func _ready():
 	$Timers/DashCooldown.wait_time = dash_cooldown
+	$Timers/AKReload.wait_time = ak_cooldown
+	$Timers/ShotgunReload.wait_time = shotgun_cooldown
+	$Timers/RocketReload.wait_time = rocket_cooldown
 
 
 func _process(delta):
@@ -87,6 +95,10 @@ func get_input():
 	if Input.is_action_just_pressed("switch"):
 		current_gun = Global.guns[Global.guns.keys()[(current_gun + 1) % len(Global.guns)]]
 
+	# shoot 
+	if Input.is_action_just_pressed("shoot"):
+		shoot_gun()
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -109,6 +121,12 @@ func apply_movement(delta):
 	if jump or $Timers/JumpBuffer.time_left and is_on_floor():
 		velocity.y = -jump_strength
 		jump = false
+		faster_fall = false
+	
+	# gun jump
+	if gun_jump:
+		velocity.y = -gun_jump_strength
+		gun_jump = false
 		faster_fall = false
 	
 	var on_floor = is_on_floor()
@@ -141,3 +159,26 @@ func block_movement():
 	can_move = false
 	velocity = Vector2.ZERO
 	$PlayerGraphics/Legs.stop()
+
+
+func shoot_gun():
+	var pos = position + aim_direction * crosshair_distance
+	pos = pos if not ducking else pos + Vector2(0,y_offset)
+	if current_gun == Global.guns.AK and not $Timers/AKReload.time_left:
+		shoot.emit(pos, aim_direction, current_gun)
+		$Timers/AKReload.start()
+	if current_gun == Global.guns.ROCKET and not $Timers/RocketReload.time_left:
+		shoot.emit(pos, aim_direction, current_gun)
+		$Timers/RocketReload.start()
+	if current_gun == Global.guns.SHOTGUN and not $Timers/ShotgunReload.time_left:
+		shoot.emit(pos, aim_direction, current_gun)
+		$Timers/ShotgunReload.start()
+		$GPUParticles2D.position = $Crosshair.position
+		$GPUParticles2D.process_material.set('direction', aim_direction)
+		$GPUParticles2D.emitting = true
+		if aim_direction.y == 1 and velocity.y >= 0:
+			gun_jump = true
+
+
+func get_cam():
+	return $Camera2D

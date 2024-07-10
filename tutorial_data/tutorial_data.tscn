@@ -816,6 +816,7 @@ _data = {
 script = ExtResource("1_6yh76")
 
 [node name="LightOptions" type="Node2D" parent="."]
+visible = false
 
 [node name="Options" type="Node2D" parent="LightOptions"]
 
@@ -920,7 +921,6 @@ parameters/Shotgun/blend_position = Vector2(0, 0)
 script = SubResource("GDScript_vlm3b")
 
 [node name="SoldierAnimation" type="Node2D" parent="."]
-visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SoldierAnimation"]
 libraries = {
