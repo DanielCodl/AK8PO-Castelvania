@@ -182,3 +182,11 @@ func shoot_gun():
 
 func get_cam():
 	return $Camera2D
+
+
+func get_sprites():
+	return [$PlayerGraphics/Legs, $PlayerGraphics/Torso]
+
+
+#func trigger_death():
+	#get_tree().quit()

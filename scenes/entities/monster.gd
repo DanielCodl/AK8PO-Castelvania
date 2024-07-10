@@ -10,7 +10,13 @@ var y_offset: float
 
 var rng = RandomNumberGenerator.new()
 
-func _process(delta):
+signal detonate(pos)
+
+func _ready():
+	health = Global.enemy_parameters['monster']['health']
+
+
+func _process(_delta):
 	var x =  player.position.x + cam_size / 2 - 10
 	x = max(limits.x, min(limits.y, x)) 
 	var y = player.position.y + y_offset
@@ -36,5 +42,20 @@ func trigger_attack():
 		shoot.emit(marker.global_position, Vector2.LEFT, Global.guns.AK)
 
 
+func trigger_death():
+	$Timers/MoveTimer.stop()
+	$Timers/AttackTimer.stop()
+	$AnimationPlayer.current_animation = 'death'
+
+
 func return_to_idle():
 	$AnimationPlayer.current_animation = 'idle'
+
+
+func get_sprites():
+	return [$Sprite2D]
+
+func explode():
+	var rand_x = rng.randi_range(global_position.x - 20, global_position.x + 20)
+	var rand_y = rng.randi_range(global_position.y - 20, global_position.y + 20)
+	detonate.emit(Vector2(rand_x, rand_y))

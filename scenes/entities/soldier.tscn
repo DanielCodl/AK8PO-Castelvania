@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck2ams154v47x"]
+[gd_scene load_steps=16 format=3 uid="uid://ck2ams154v47x"]
 
 [ext_resource type="PackedScene" uid="uid://b68vs0af4e7hi" path="res://scenes/entities/entity.tscn" id="1_rhfix"]
 [ext_resource type="Texture2D" uid="uid://b67j3027chb34" path="res://graphics/entities/ARMob.png" id="2_h57ac"]
 [ext_resource type="Script" path="res://scenes/entities/soldier.gd" id="2_vr10f"]
+[ext_resource type="Shader" uid="uid://br8mulv38plki" path="res://shaders/flash.tres" id="3_fbq41"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pigfh"]
 radius = 5.0
@@ -173,12 +174,15 @@ _data = {
 "shoot_up": SubResource("Animation_4aw3s")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyxxk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymh56"]
+shader = ExtResource("3_fbq41")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Progress = null
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvyjf"]
 size = Vector2(14, 30)
 
-[node name="Soldier" instance=ExtResource("1_rhfix")]
+[node name="Soldier" groups=["Enemies"] instance=ExtResource("1_rhfix")]
 collision_layer = 4
 collision_mask = 19
 script = ExtResource("2_vr10f")
@@ -192,7 +196,7 @@ libraries = {
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="3"]
-material = SubResource("ShaderMaterial_dyxxk")
+material = SubResource("ShaderMaterial_ymh56")
 position = Vector2(0, -4)
 texture = ExtResource("2_h57ac")
 hframes = 24

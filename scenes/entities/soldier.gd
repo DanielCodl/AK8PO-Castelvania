@@ -6,12 +6,16 @@ var speed_modifier := 1
 var attack := false
 @onready var player = get_tree().get_first_node_in_group('Player')
 
+func _ready():
+	health = Global.enemy_parameters['soldier']['health']
+
 func _process(_delta):
-	velocity.x = x_direction * speed * speed_modifier
-	check_cliff()
-	check_player_distance()
-	animate()
-	move_and_slide()
+	if health > 0 :
+		velocity.x = x_direction * speed * speed_modifier
+		check_cliff()
+		check_player_distance()
+		animate()
+		move_and_slide()
 
 
 func check_player_distance():
@@ -53,3 +57,16 @@ func check_cliff():
 func trigger_attack():
 	var dir = (player.position - position).normalized()
 	shoot.emit(position + dir * 20, dir, Global.guns.AK)
+
+
+func get_sprites():
+	return [$Sprite2D]
+
+func trigger_death():
+	speed_modifier = 0
+	$AnimationPlayer.current_animation = 'death'
+	call_deferred("disable_collisions")
+	
+func disable_collisions():
+	$CollisionShape2D.disabled = true
+	

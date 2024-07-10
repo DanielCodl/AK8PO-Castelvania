@@ -8,3 +8,7 @@ script = ExtResource("1_kjoba")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Timers" type="Node" parent="."]
+
+[node name="InvulTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+one_shot = true

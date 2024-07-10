@@ -19,5 +19,6 @@ func _process(delta):
 	position = path_follow.position
 
 
-func _on_body_entered(_body):
-	print('player hit')
+func _on_body_entered(body):
+	if 'hit' in body:
+		body.hit(10, body.get_sprites())
