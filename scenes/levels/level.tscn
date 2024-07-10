@@ -14,6 +14,8 @@ format = 2
 tile_set = ExtResource("2_drlu5")
 format = 2
 
+[node name="BGLight" type="Node2D" parent="BG"]
+
 [node name="Main" type="Node2D" parent="."]
 
 [node name="Main" type="TileMap" parent="Main"]
@@ -22,8 +24,16 @@ format = 2
 
 [node name="Entities" type="Node2D" parent="Main"]
 
+[node name="Objects" type="Node2D" parent="Main"]
+
 [node name="FG" type="Node2D" parent="."]
 
 [node name="FG" type="TileMap" parent="FG"]
 tile_set = ExtResource("2_drlu5")
 format = 2
+
+[node name="FGLights" type="Node2D" parent="FG"]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+
+[node name="TransitionGates" type="Node2D" parent="."]

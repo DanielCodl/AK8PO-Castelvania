@@ -816,11 +816,11 @@ _data = {
 script = ExtResource("1_6yh76")
 
 [node name="LightOptions" type="Node2D" parent="."]
-visible = false
 
 [node name="Options" type="Node2D" parent="LightOptions"]
 
 [node name="0" type="Node2D" parent="LightOptions/Options"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="LightOptions/Options/0"]
 texture = ExtResource("2_yvp8s")
@@ -845,7 +845,6 @@ scale = Vector2(0.25, 1)
 texture = ExtResource("3_26401")
 
 [node name="2" type="Node2D" parent="LightOptions/Options"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="LightOptions/Options/2"]
 texture = ExtResource("2_yvp8s")
@@ -853,6 +852,7 @@ hframes = 6
 frame = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="LightOptions/Options/2"]
+visible = false
 position = Vector2(0, 1)
 texture = ExtResource("4_0nh5f")
 
@@ -894,6 +894,7 @@ energy = 0.897673
 texture = ExtResource("5_wbvyd")
 
 [node name="PlayerAnimation" type="Node2D" parent="."]
+visible = false
 
 [node name="Legs" type="AnimatedSprite2D" parent="PlayerAnimation"]
 sprite_frames = SubResource("SpriteFrames_lopsr")

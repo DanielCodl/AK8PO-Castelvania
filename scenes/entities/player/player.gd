@@ -52,6 +52,7 @@ func animate():
 		$CollisionShape2D.shape.height = collision_shape_height
 		$CollisionShape2D.position.y = 0
 
+
 func get_input():
 	# horizontal movement 
 	direction.x = Input.get_axis("left", "right")
@@ -85,6 +86,7 @@ func get_input():
 	# switch
 	if Input.is_action_just_pressed("switch"):
 		current_gun = Global.guns[Global.guns.keys()[(current_gun + 1) % len(Global.guns)]]
+
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -133,3 +135,9 @@ func apply_gravity(delta):
 func on_dash_finish():
 	velocity.x = move_toward(velocity.x, 0, 500)
 	gravity_multiplier = 1
+
+
+func block_movement():
+	can_move = false
+	velocity = Vector2.ZERO
+	$PlayerGraphics/Legs.stop()
