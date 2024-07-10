@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci1cu723huf58"]
+
+[ext_resource type="AudioStream" uid="uid://c7hmrbkx1yg1h" path="res://audio/music.mp3" id="1_p0k67"]
+
+[node name="BGMusic" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_p0k67")
+volume_db = -30.705
+autoplay = true

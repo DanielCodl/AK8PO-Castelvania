@@ -5,6 +5,8 @@ signal shoot(pos, dir, bullet_type)
 var health := 100:
 	set(value):
 		health = value
+		if is_in_group('Player'):
+			get_tree().get_first_node_in_group('HealthCircle').update(value)
 		if health <= 0:
 			trigger_death()
 
@@ -13,6 +15,7 @@ func hit(damage, nodes):
 		health -= damage
 		$Timers/InvulTimer.start()
 		flash(nodes)
+		$AudioStreamPlayer2D.play()
 
 
 func flash(nodes):
@@ -26,3 +29,9 @@ func set_flash_value(value: float, nodes):
 
 func trigger_death():
 	pass
+
+func setup(data):
+	if self.is_in_group('Enemies'):
+		position = data[0]
+		velocity = data[1]
+		health = data[2]

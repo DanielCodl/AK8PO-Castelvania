@@ -69,4 +69,9 @@ func trigger_death():
 	
 func disable_collisions():
 	$CollisionShape2D.disabled = true
-	
+
+func setup(data):
+	super.setup(data)
+	speed_modifier = 0
+	$AnimationPlayer.stop()
+	$Sprite2D.frame = 22

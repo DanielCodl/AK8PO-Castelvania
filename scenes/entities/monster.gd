@@ -56,6 +56,8 @@ func get_sprites():
 	return [$Sprite2D]
 
 func explode():
+	@warning_ignore("narrowing_conversion")
 	var rand_x = rng.randi_range(global_position.x - 20, global_position.x + 20)
+	@warning_ignore("narrowing_conversion")
 	var rand_y = rng.randi_range(global_position.y - 20, global_position.y + 20)
 	detonate.emit(Vector2(rand_x, rand_y))

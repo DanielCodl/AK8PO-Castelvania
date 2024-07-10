@@ -136,7 +136,10 @@ func apply_movement(delta):
 	
 	# dash
 	if dash:
+		$DashSound.play()
 		dash = false
+		$PlayerGraphics.dash_particles(direction)
+		flash(get_sprites())
 		var dash_tween = create_tween()
 		dash_tween.tween_property(self, 'velocity:x',velocity.x + direction.x * 600, 0.3)
 		dash_tween.connect("finished", on_dash_finish)

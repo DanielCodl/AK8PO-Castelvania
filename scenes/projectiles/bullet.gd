@@ -7,6 +7,8 @@ var explosive := false
 signal detonate(pos: Vector2)
 
 func setup(pos, dir, type):
+	$AudioStreamPlayer2D.stream = Global.bullet_sounds[type]
+	$AudioStreamPlayer2D.play()
 	position = pos 
 	direction = dir.normalized()
 	if type in [Global.guns.AK, Global.guns.ROCKET]:

@@ -22,6 +22,7 @@ func _on_collsion_detection_area_body_entered(body):
 	if body != self:
 		detonate.emit(global_position)
 		queue_free()
+		body.hit(Global.enemy_parameters['drone']['damage'], body.get_sprites())
 
 func get_sprites():
 	return [$AnimatedSprite2D]
